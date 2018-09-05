@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.polidea.rxandroidble2.RxBleClient;
+
 import dagger.Module;
 import dagger.Provides;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
@@ -33,5 +35,10 @@ public class AppModule {
     @ApplicationContext
     SharedPreferences provideSharedPreference(@ApplicationContext Context context) {
         return context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    RxBleClient reactiveBeacons(@ApplicationContext Context context) {
+        return RxBleClient.create(context);
     }
 }

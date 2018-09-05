@@ -14,12 +14,12 @@ import pl.yahoo.pawelpiedel.injection.module.AppModule;
 import pl.yahoo.pawelpiedel.injection.module.NetworkModule;
 import timber.log.Timber;
 
-public class MvpStarterApplication extends Application {
+public class BeaconApplication extends Application {
 
     private AppComponent appComponent;
 
-    public static MvpStarterApplication get(Context context) {
-        return (MvpStarterApplication) context.getApplicationContext();
+    public static BeaconApplication get(Context context) {
+        return (BeaconApplication) context.getApplicationContext();
     }
 
     @Override

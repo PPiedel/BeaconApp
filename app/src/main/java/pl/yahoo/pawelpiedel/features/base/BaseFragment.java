@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.concurrent.atomic.AtomicLong;
 
 import butterknife.ButterKnife;
-import pl.yahoo.pawelpiedel.MvpStarterApplication;
+import pl.yahoo.pawelpiedel.BeaconApplication;
 import pl.yahoo.pawelpiedel.injection.component.ConfigPersistentComponent;
 import pl.yahoo.pawelpiedel.injection.component.DaggerConfigPersistentComponent;
 import pl.yahoo.pawelpiedel.injection.component.FragmentComponent;
@@ -46,7 +46,7 @@ public abstract class BaseFragment extends Fragment {
             Timber.i("Creating new ConfigPersistentComponent id=%d", fragmentId);
             configPersistentComponent =
                     DaggerConfigPersistentComponent.builder()
-                            .appComponent(MvpStarterApplication.get(getActivity()).getComponent())
+                            .appComponent(BeaconApplication.get(getActivity()).getComponent())
                             .build();
             componentsArray.put(fragmentId, configPersistentComponent);
         } else {

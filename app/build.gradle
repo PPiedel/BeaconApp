@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply from: '../config/quality/quality.gradle'
 apply from: '../config/jacoco.gradle'
 apply plugin: 'com.github.ben-manes.versions'
-//apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27

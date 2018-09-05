@@ -10,4 +10,5 @@ import pl.yahoo.pawelpiedel.injection.module.ActivityModule;
 public interface ActivityComponent {
 
     void inject(MainActivity mainActivity);
+
 }

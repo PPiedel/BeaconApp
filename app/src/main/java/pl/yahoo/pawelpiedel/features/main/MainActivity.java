@@ -35,10 +35,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
         setSupportActionBar(toolbar);
 
         errorView.setErrorListener(this);
-
-
     }
-
 
 
     @Override
@@ -64,7 +61,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @Override
     public void showError(Throwable error) {
         errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was an error retrieving the pokemon");
+        Timber.e(error, "There was an error");
+    }
+
+    @Override
+    public void onViewAttached() {
+        mainPresenter.getBeaconsNearby(this);
     }
 
     @Override

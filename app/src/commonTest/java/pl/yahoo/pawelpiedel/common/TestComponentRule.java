@@ -6,7 +6,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import pl.yahoo.pawelpiedel.MvpStarterApplication;
+import pl.yahoo.pawelpiedel.BeaconApplication;
 import pl.yahoo.pawelpiedel.common.injection.component.DaggerTestComponent;
 import pl.yahoo.pawelpiedel.common.injection.component.TestComponent;
 import pl.yahoo.pawelpiedel.common.injection.module.ApplicationTestModule;
@@ -25,7 +25,7 @@ public class TestComponentRule implements TestRule {
 
     public TestComponentRule(Context context) {
         this.context = context;
-        MvpStarterApplication application = MvpStarterApplication.get(context);
+        BeaconApplication application = BeaconApplication.get(context);
         testComponent =
                 DaggerTestComponent.builder()
                         .applicationTestModule(new ApplicationTestModule(application))
@@ -49,7 +49,7 @@ public class TestComponentRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                MvpStarterApplication application = MvpStarterApplication.get(context);
+                BeaconApplication application = BeaconApplication.get(context);
                 application.setComponent(testComponent);
                 base.evaluate();
                 application.setComponent(null);
