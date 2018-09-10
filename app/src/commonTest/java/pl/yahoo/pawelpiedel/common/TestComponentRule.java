@@ -10,7 +10,6 @@ import pl.yahoo.pawelpiedel.BeaconApplication;
 import pl.yahoo.pawelpiedel.common.injection.component.DaggerTestComponent;
 import pl.yahoo.pawelpiedel.common.injection.component.TestComponent;
 import pl.yahoo.pawelpiedel.common.injection.module.ApplicationTestModule;
-import pl.yahoo.pawelpiedel.data.DataManager;
 
 /**
  * Test rule that creates and sets a Dagger TestComponent into the application overriding the

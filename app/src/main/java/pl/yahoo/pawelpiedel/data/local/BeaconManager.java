@@ -35,12 +35,12 @@ public class BeaconManager {
     private static Map<String, FilterService> deviceRssiFilterServices = new HashMap<>();
 
     private final RxBleClient rxBleClient;
-    private final DistanceService distanceService;
+    private final DistanceCalculationService distanceCalculationService;
 
     @Inject
-    public BeaconManager(RxBleClient rxBleClient, DistanceService distanceService) {
+    public BeaconManager(RxBleClient rxBleClient, DistanceCalculationService distanceCalculationService) {
         this.rxBleClient = rxBleClient;
-        this.distanceService = distanceService;
+        this.distanceCalculationService = distanceCalculationService;
     }
 
     @SuppressLint("MissingPermission")
@@ -53,7 +53,7 @@ public class BeaconManager {
     }
 
     public double getDistance(double rssi) {
-        return distanceService.calculateDistance(rssi, TX_POWER);
+        return distanceCalculationService.calculateDistance(rssi, TX_POWER);
     }
 
     public boolean isKnownDevice(String macAddress) {

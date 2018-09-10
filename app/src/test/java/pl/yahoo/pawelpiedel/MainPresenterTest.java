@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import pl.yahoo.pawelpiedel.data.DataManager;
+import pl.yahoo.pawelpiedel.data.local.BeaconManager;
 import pl.yahoo.pawelpiedel.features.main.MainMvpView;
 import pl.yahoo.pawelpiedel.features.main.MainPresenter;
 import pl.yahoo.pawelpiedel.util.RxSchedulersOverrideRule;
@@ -17,16 +17,16 @@ public class MainPresenterTest {
 
     @Rule
     public final RxSchedulersOverrideRule overrideSchedulersRule = new RxSchedulersOverrideRule();
-
+    @Mock
+    BeaconManager beaconManager;
     @Mock
     MainMvpView mockMainMvpView;
-    @Mock
-    DataManager mockDataManager;
+
     private MainPresenter mainPresenter;
 
     @Before
     public void setUp() {
-        mainPresenter = new MainPresenter(mockDataManager);
+        mainPresenter = new MainPresenter(beaconManager);
         mainPresenter.attachView(mockMainMvpView);
     }
 

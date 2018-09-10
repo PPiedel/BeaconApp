@@ -124,6 +124,7 @@ dependencies {
     annotationProcessor annotationProcessorLibs
     testAnnotationProcessor daggerCompiler
     androidTestAnnotationProcessor daggerCompiler
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
 
     testImplementation unitTestLibs
     androidTestImplementation androidTestsLibs
