@@ -8,6 +8,8 @@ import com.polidea.rxandroidble2.RxBleClient;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.yahoo.pawelpiedel.data.local.FilterService;
+import pl.yahoo.pawelpiedel.data.local.KalmanFilterService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 
 import static pl.yahoo.pawelpiedel.Constants.PREF_FILE_NAME;
@@ -40,5 +42,10 @@ public class AppModule {
     @Provides
     RxBleClient reactiveBeacons(@ApplicationContext Context context) {
         return RxBleClient.create(context);
+    }
+
+    @Provides
+    FilterService filterService() {
+        return new KalmanFilterService();
     }
 }
