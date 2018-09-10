@@ -116,11 +116,13 @@ ext {
 
     reactivebeacons = "com.polidea.rxandroidble2:rxandroidble:1.7.0"
 
+    lombok = "org.projectlombok:lombok:1.18.2"
+
     googlePlayLibs = googlePlay.values()
     supportLibs = supportDeps.values()
     networkLibs = retrofit.values() + okHttp.values()
     rxJavaLibs = rxJava.values()
-    otherLibs = [butterKnife, timber, dagger, glide, glideOkhttp, reactivebeacons]
+    otherLibs = [butterKnife, timber, dagger, glide, glideOkhttp, reactivebeacons, lombok]
 
     debugLibs = onlyDebug.values() + leakCannary
     releaseLibs = onlyRelease.values() + leakCannary

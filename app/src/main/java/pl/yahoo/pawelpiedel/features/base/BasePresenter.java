@@ -12,8 +12,8 @@ import rx.Single;
  */
 public class BasePresenter<T extends MvpView> implements Presenter<T> {
 
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private T mvpView;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
+    protected T mvpView;
 
     @Override
     public void attachView(T mvpView) {

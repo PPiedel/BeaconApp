@@ -15,6 +15,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import pl.yahoo.pawelpiedel.data.local.filters.FilterService;
+import pl.yahoo.pawelpiedel.data.local.filters.FilterServiceFactory;
+import pl.yahoo.pawelpiedel.data.local.filters.FilterServiceType;
 
 import static java.util.Arrays.asList;
 
@@ -57,11 +60,11 @@ public class BeaconManager {
         return knownDevices.contains(macAddress);
     }
 
-    public double getSmoothedRssi(ScanResult scanResult) {
+    public double getSmoothedRssi(ScanResult scanResult, FilterServiceType filterServiceType) {
         String macAddress = scanResult.getBleDevice().getMacAddress();
 
         if (!deviceRssiFilterServices.containsKey(macAddress)) {
-            deviceRssiFilterServices.put(macAddress, new KalmanFilterService());
+            deviceRssiFilterServices.put(macAddress, FilterServiceFactory.createFilterService(filterServiceType));
         }
 
         return deviceRssiFilterServices.get(macAddress).getFilteredValue(scanResult.getRssi());
