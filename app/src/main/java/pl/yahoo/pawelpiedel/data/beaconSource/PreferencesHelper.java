@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.data.local;
+package pl.yahoo.pawelpiedel.data.beaconSource;
 
 import android.content.SharedPreferences;
 

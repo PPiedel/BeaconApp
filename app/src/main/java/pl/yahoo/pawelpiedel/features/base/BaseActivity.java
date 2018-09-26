@@ -58,6 +58,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityComponent activityComponent =
                 configPersistentComponent.activityComponent(new ActivityModule(this));
         inject(activityComponent);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         attachView();
     }
 
@@ -87,12 +93,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        detachPresenter();
+    }
+
+    @Override
     protected void onDestroy() {
         if (!isChangingConfigurations()) {
             Timber.i("Clearing ConfigPersistentComponent id=%d", activityId);
             componentsArray.remove(activityId);
         }
-        detachPresenter();
         super.onDestroy();
     }
 }

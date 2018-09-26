@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.data.local.filters;
+package pl.yahoo.pawelpiedel.data.beaconSource.filters;
 
 import javax.inject.Inject;
 

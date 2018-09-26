@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import pl.yahoo.pawelpiedel.R;
+import pl.yahoo.pawelpiedel.data.place.Place;
 import pl.yahoo.pawelpiedel.features.base.BaseActivity;
 import pl.yahoo.pawelpiedel.features.common.ErrorView;
 import pl.yahoo.pawelpiedel.injection.component.ActivityComponent;
@@ -67,6 +68,11 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
     @Override
     public void onViewAttached() {
         mainPresenter.getBeaconsNearby(this);
+    }
+
+    @Override
+    public void showPlaceDetails(Place place) {
+        Timber.d("Place details" + place);
     }
 
     @Override

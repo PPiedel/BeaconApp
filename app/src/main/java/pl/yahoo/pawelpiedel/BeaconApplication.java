@@ -11,7 +11,6 @@ import com.tspoon.traceur.Traceur;
 import pl.yahoo.pawelpiedel.injection.component.AppComponent;
 import pl.yahoo.pawelpiedel.injection.component.DaggerAppComponent;
 import pl.yahoo.pawelpiedel.injection.module.AppModule;
-import pl.yahoo.pawelpiedel.injection.module.NetworkModule;
 import timber.log.Timber;
 
 public class BeaconApplication extends Application {
@@ -38,7 +37,7 @@ public class BeaconApplication extends Application {
     public AppComponent getComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
-                    .networkModule(new NetworkModule(this, BuildConfig.POKEAPI_API_URL))
+//                    .networkModule(new NetworkModule(this, BuildConfig.BEACON_LOCALHOST_BASE_URL))
                     .appModule(new AppModule(this))
                     .build();
         }
