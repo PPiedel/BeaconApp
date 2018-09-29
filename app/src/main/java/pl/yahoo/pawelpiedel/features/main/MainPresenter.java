@@ -15,9 +15,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import pl.yahoo.pawelpiedel.data.beacon.BeaconManager;
-import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
 import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.features.base.BasePresenter;
+import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
+import pl.yahoo.pawelpiedel.features.tts.TextToSpeechService;
 import pl.yahoo.pawelpiedel.injection.ConfigPersistent;
 import timber.log.Timber;
 
@@ -26,11 +27,13 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
     private final BeaconManager beaconManager;
     private final PlaceDataSource placeDataSource;
+    private final TextToSpeechService textToSpeechService;
 
     @Inject
-    public MainPresenter(BeaconManager beaconManager, PlaceDataSource placeDataSource) {
+    public MainPresenter(BeaconManager beaconManager, PlaceDataSource placeDataSource, TextToSpeechService textToSpeechService) {
         this.beaconManager = beaconManager;
         this.placeDataSource = placeDataSource;
+        this.textToSpeechService = textToSpeechService;
     }
 
     @Override
@@ -61,6 +64,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(scanResult -> beaconManager.isKnownDevice(scanResult.getBleDevice().getMacAddress()))
+                .filter(scanResult -> !textToSpeechService.isSpeaking())
                 .subscribe(scanResult -> {
                     String macAddress = scanResult.getBleDevice().getMacAddress();
 
@@ -79,6 +83,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(place -> {
                             this.mvpView.showPlaceDetails(place);
+                            this.textToSpeechService.speak(place.getName());
                         },
                         Timber::i)
         );

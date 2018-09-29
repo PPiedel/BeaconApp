@@ -13,12 +13,12 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import pl.yahoo.pawelpiedel.features.distanceCalculation.DistanceCalculationService;
+import pl.yahoo.pawelpiedel.features.distance.DistanceCalculationService;
 import pl.yahoo.pawelpiedel.features.filtering.FilterService;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceFactory;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
 
-import static pl.yahoo.pawelpiedel.features.distanceCalculation.Constants.KNOWN_DEVICES;
+import static pl.yahoo.pawelpiedel.features.distance.Constants.KNOWN_DEVICES;
 
 @Singleton
 public class BeaconManager {

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import pl.yahoo.pawelpiedel.data.beacon.BeaconManager;
 import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
+import pl.yahoo.pawelpiedel.features.tts.TextToSpeechService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import pl.yahoo.pawelpiedel.injection.module.AppModule;
 
@@ -23,4 +24,6 @@ public interface AppComponent {
     BeaconManager beaconmanager();
 
     PlaceDataSource placeDataSource();
+
+    TextToSpeechService textToSpeechService();
 }

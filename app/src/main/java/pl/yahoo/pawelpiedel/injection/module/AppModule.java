@@ -18,19 +18,20 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import pl.yahoo.pawelpiedel.BuildConfig;
+import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalDataSource;
+import pl.yahoo.pawelpiedel.data.place.remote.PlaceApi;
 import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteDataSource;
 import pl.yahoo.pawelpiedel.features.filtering.FilterService;
 import pl.yahoo.pawelpiedel.features.filtering.KalmanFilterService;
-import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
-import pl.yahoo.pawelpiedel.data.place.remote.BeaconApi;
+import pl.yahoo.pawelpiedel.features.tts.TextToSpeechService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static pl.yahoo.pawelpiedel.Constants.PREF_FILE_NAME;
+import static pl.yahoo.pawelpiedel.data.Constants.PREF_FILE_NAME;
 
 @Module(includes = {ApiModule.class})
 public class AppModule {
@@ -70,8 +71,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    BeaconApi provideApi(Retrofit retrofit) {
-        return retrofit.create(BeaconApi.class);
+    PlaceApi provideApi(Retrofit retrofit) {
+        return retrofit.create(PlaceApi.class);
     }
 
     @Provides
@@ -143,8 +144,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    PlaceRemoteDataSource placeRemoteService(BeaconApi beaconApi){
-        return new PlaceRemoteDataSource(beaconApi);
+    PlaceRemoteDataSource placeRemoteService(PlaceApi placeApi){
+        return new PlaceRemoteDataSource(placeApi);
     }
 
+    @Provides
+    @Singleton
+    TextToSpeechService textToSpeechService(@ApplicationContext Context context) {
+        return new TextToSpeechService(context);
+    }
 }

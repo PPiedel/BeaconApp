@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel;
+package pl.yahoo.pawelpiedel.data;
 
 public interface Constants {
 

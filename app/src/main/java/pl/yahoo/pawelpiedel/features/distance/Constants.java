@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.features.distanceCalculation;
+package pl.yahoo.pawelpiedel.features.distance;
 
 import java.util.ArrayList;
 import java.util.List;
