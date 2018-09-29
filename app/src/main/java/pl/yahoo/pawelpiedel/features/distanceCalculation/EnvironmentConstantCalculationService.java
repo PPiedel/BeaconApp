@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.data.beaconSource;
+package pl.yahoo.pawelpiedel.features.distanceCalculation;
 
 import javax.inject.Inject;
 

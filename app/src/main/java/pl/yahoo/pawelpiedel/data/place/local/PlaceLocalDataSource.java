@@ -7,12 +7,12 @@ import com.google.gson.Gson;
 import pl.yahoo.pawelpiedel.data.place.Place;
 import timber.log.Timber;
 
-public class PlaceLocalService {
+public class PlaceLocalDataSource {
 
     private final SharedPreferences sharedPreferences;
     private final Gson gson;
 
-    public PlaceLocalService(SharedPreferences sharedPreferences, Gson gson) {
+    public PlaceLocalDataSource(SharedPreferences sharedPreferences, Gson gson) {
         this.sharedPreferences = sharedPreferences;
         this.gson = gson;
     }

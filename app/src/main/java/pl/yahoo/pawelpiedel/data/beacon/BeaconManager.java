@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.data.beaconSource;
+package pl.yahoo.pawelpiedel.data.beacon;
 
 import android.annotation.SuppressLint;
 
@@ -6,34 +6,24 @@ import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.scan.ScanResult;
 import com.polidea.rxandroidble2.scan.ScanSettings;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterService;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterServiceFactory;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterServiceType;
+import pl.yahoo.pawelpiedel.features.distanceCalculation.DistanceCalculationService;
+import pl.yahoo.pawelpiedel.features.filtering.FilterService;
+import pl.yahoo.pawelpiedel.features.filtering.FilterServiceFactory;
+import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
 
-import static java.util.Arrays.asList;
-import static pl.yahoo.pawelpiedel.data.beaconSource.Constants.BEACON_1_MAC_ADDRESS;
-import static pl.yahoo.pawelpiedel.data.beaconSource.Constants.BEACON_2_MAC_ADDRESS;
-import static pl.yahoo.pawelpiedel.data.beaconSource.Constants.BEACON_3_MAC_ADDRESS;
-import static pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterServiceType.KALMAN;
+import static pl.yahoo.pawelpiedel.features.distanceCalculation.Constants.KNOWN_DEVICES;
 
 @Singleton
 public class BeaconManager {
     private static final int TX_POWER = -70;
-    private static final FilterServiceType FILTER_TYPE = KALMAN;
-    private static final List<String> knownDevices = new ArrayList<>(asList(
-            BEACON_1_MAC_ADDRESS,
-            BEACON_3_MAC_ADDRESS,
-            BEACON_2_MAC_ADDRESS)
-    );
+
     private static Map<String, FilterService> deviceRssiFilterServices = new HashMap<>();
 
     private final RxBleClient rxBleClient;
@@ -55,12 +45,12 @@ public class BeaconManager {
     }
 
     public boolean isKnownDevice(String macAddress) {
-        return knownDevices.contains(macAddress);
+        return KNOWN_DEVICES.contains(macAddress);
     }
 
     public double getDistance(ScanResult scanResult, FilterServiceType filterServiceType) {
         double smoothedRssi = getSmoothedRssi(scanResult, filterServiceType);
-        return distanceCalculationService.calculateDistance(scanResult.getRssi(), TX_POWER);
+        return distanceCalculationService.calculateDistance(smoothedRssi, TX_POWER);
     }
 
     private double getSmoothedRssi(ScanResult scanResult, FilterServiceType filterServiceType) {

@@ -18,12 +18,12 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import pl.yahoo.pawelpiedel.BuildConfig;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterService;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.KalmanFilterService;
+import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalDataSource;
+import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteDataSource;
+import pl.yahoo.pawelpiedel.features.filtering.FilterService;
+import pl.yahoo.pawelpiedel.features.filtering.KalmanFilterService;
 import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
-import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalService;
 import pl.yahoo.pawelpiedel.data.place.remote.BeaconApi;
-import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -131,20 +131,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    PlaceDataSource placeDataSource(PlaceLocalService placeLocalService, PlaceRemoteService placeRemoteService) {
-        return new PlaceDataSource(placeRemoteService, placeLocalService);
+    PlaceDataSource placeDataSource(PlaceLocalDataSource placeLocalDataSource, PlaceRemoteDataSource placeRemoteDataSource) {
+        return new PlaceDataSource(placeRemoteDataSource, placeLocalDataSource);
     }
 
     @Provides
     @Singleton
-    PlaceLocalService placeLocalService(SharedPreferences sharedPreferences, Gson gson) {
-        return new PlaceLocalService(sharedPreferences, gson);
+    PlaceLocalDataSource placeLocalService(SharedPreferences sharedPreferences, Gson gson) {
+        return new PlaceLocalDataSource(sharedPreferences, gson);
     }
 
     @Provides
     @Singleton
-    PlaceRemoteService placeRemoteService(BeaconApi beaconApi){
-        return new PlaceRemoteService(beaconApi);
+    PlaceRemoteDataSource placeRemoteService(BeaconApi beaconApi){
+        return new PlaceRemoteDataSource(beaconApi);
     }
 
 }

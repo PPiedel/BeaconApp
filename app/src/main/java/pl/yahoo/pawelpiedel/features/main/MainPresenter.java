@@ -14,8 +14,8 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import pl.yahoo.pawelpiedel.data.beaconSource.BeaconManager;
-import pl.yahoo.pawelpiedel.data.beaconSource.filters.FilterServiceType;
+import pl.yahoo.pawelpiedel.data.beacon.BeaconManager;
+import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
 import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.features.base.BasePresenter;
 import pl.yahoo.pawelpiedel.injection.ConfigPersistent;
@@ -45,6 +45,14 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         rxPermissions
                 .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH)
                 .subscribe(this::handlePermisionsResult);
+    }
+
+    private void handlePermisionsResult(Boolean granted) {
+        if (granted) {
+            compositeDisposable.add(subscribeBeaconsNearby());
+        } else {
+            Timber.d("Required permissions not granted");
+        }
     }
 
     @NonNull
@@ -82,11 +90,5 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                 "\n distance : " + distance);
     }
 
-    private void handlePermisionsResult(Boolean granted) {
-        if (granted) {
-            compositeDisposable.add(subscribeBeaconsNearby());
-        } else {
-            Timber.d("Required permissions not granted");
-        }
-    }
+
 }

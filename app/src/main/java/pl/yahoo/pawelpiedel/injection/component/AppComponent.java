@@ -6,7 +6,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import pl.yahoo.pawelpiedel.data.beaconSource.BeaconManager;
+import pl.yahoo.pawelpiedel.data.beacon.BeaconManager;
 import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import pl.yahoo.pawelpiedel.injection.module.AppModule;

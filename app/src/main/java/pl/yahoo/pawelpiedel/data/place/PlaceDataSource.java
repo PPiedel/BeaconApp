@@ -1,15 +1,15 @@
 package pl.yahoo.pawelpiedel.data.place;
 
 import io.reactivex.Observable;
-import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalService;
-import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteService;
+import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalDataSource;
+import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteDataSource;
 
 public class PlaceDataSource {
 
-    private final PlaceRemoteService placeRemoteDataSource;
-    private final PlaceLocalService placeLocalDataSource;
+    private final PlaceRemoteDataSource placeRemoteDataSource;
+    private final PlaceLocalDataSource placeLocalDataSource;
 
-    public PlaceDataSource(PlaceRemoteService placeRemoteDataSource, PlaceLocalService placeLocalDataSource) {
+    public PlaceDataSource(PlaceRemoteDataSource placeRemoteDataSource, PlaceLocalDataSource placeLocalDataSource) {
         this.placeRemoteDataSource = placeRemoteDataSource;
         this.placeLocalDataSource = placeLocalDataSource;
     }
