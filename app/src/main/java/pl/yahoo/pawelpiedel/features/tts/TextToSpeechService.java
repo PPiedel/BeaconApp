@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
+import pl.yahoo.pawelpiedel.data.place.Place;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import timber.log.Timber;
 
@@ -25,7 +26,13 @@ public class TextToSpeechService implements TextToSpeech.OnInitListener {
 
     }
 
-    public void speak(String sentence) {
+    public void speak(Place place, double distance) {
+        String sentence = "";
+        if (distance < 3 && place.getPlaceType().equals("DANGER")) {
+            sentence = "Uważaj! Jesteś w odległości około" + distance + " metrów od miejsca." + place.getName();
+        } else {
+            sentence = "Zbliżasz się do " + place.getName() + ". Odległość to około " + distance + "metrów.";
+        }
         Timber.d("Trying to speak " + sentence);
 
         HashMap<String, String> map = new HashMap<>();

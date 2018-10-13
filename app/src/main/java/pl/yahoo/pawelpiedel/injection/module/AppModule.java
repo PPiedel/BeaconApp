@@ -22,6 +22,7 @@ import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalDataSource;
 import pl.yahoo.pawelpiedel.data.place.remote.PlaceApi;
 import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteDataSource;
+import pl.yahoo.pawelpiedel.features.information.InformationService;
 import pl.yahoo.pawelpiedel.features.tts.TextToSpeechService;
 import pl.yahoo.pawelpiedel.features.vibrations.VibrationsService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
@@ -152,5 +153,11 @@ public class AppModule {
     @Singleton
     VibrationsService vibrationsService(@ApplicationContext Context context) {
         return new VibrationsService(context);
+    }
+
+    @Provides
+    @Singleton
+    InformationService informationService() {
+        return new InformationService();
     }
 }
