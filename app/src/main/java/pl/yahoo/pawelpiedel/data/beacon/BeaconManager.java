@@ -1,7 +1,5 @@
 package pl.yahoo.pawelpiedel.data.beacon;
 
-import android.annotation.SuppressLint;
-
 import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.scan.ScanResult;
 import com.polidea.rxandroidble2.scan.ScanSettings;
@@ -17,6 +15,7 @@ import pl.yahoo.pawelpiedel.features.distance.DistanceCalculationService;
 import pl.yahoo.pawelpiedel.features.filtering.FilterService;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceFactory;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
+import timber.log.Timber;
 
 import static pl.yahoo.pawelpiedel.features.distance.Constants.KNOWN_DEVICES;
 
@@ -35,7 +34,6 @@ public class BeaconManager {
         this.distanceCalculationService = distanceCalculationService;
     }
 
-    @SuppressLint("MissingPermission")
     public Observable<ScanResult> getScanResult() {
         return rxBleClient.scanBleDevices(
                 new ScanSettings.Builder()
@@ -50,18 +48,22 @@ public class BeaconManager {
 
     public double getDistance(ScanResult scanResult, FilterServiceType filterServiceType) {
         double smoothedRssi = getSmoothedRssi(scanResult, filterServiceType);
-        return distanceCalculationService.calculateDistance(smoothedRssi, TX_POWER);
+        double distance = distanceCalculationService.calculateDistance(smoothedRssi, TX_POWER);
+
+        Timber.d("\nMAC address : " + scanResult.getBleDevice().getMacAddress() +
+                "\n smoothed rssi : " + smoothedRssi +
+                "\n distance : " + distance);
+
+        return distance;
     }
 
     private double getSmoothedRssi(ScanResult scanResult, FilterServiceType filterServiceType) {
         String macAddress = scanResult.getBleDevice().getMacAddress();
 
         if (!deviceRssiFilterServices.containsKey(macAddress)) {
-            deviceRssiFilterServices.put(macAddress, FilterServiceFactory.createFilterService(filterServiceType));
+            deviceRssiFilterServices.put(macAddress, FilterServiceFactory.createFilterService(filterServiceType, scanResult.getRssi()));
         }
 
-        return deviceRssiFilterServices.get(macAddress).getFilteredValue(scanResult.getRssi());
+        return deviceRssiFilterServices.get(macAddress).getFilteredRssi(scanResult.getRssi());
     }
-
-
 }

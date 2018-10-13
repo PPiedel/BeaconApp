@@ -22,9 +22,8 @@ import pl.yahoo.pawelpiedel.data.place.PlaceDataSource;
 import pl.yahoo.pawelpiedel.data.place.local.PlaceLocalDataSource;
 import pl.yahoo.pawelpiedel.data.place.remote.PlaceApi;
 import pl.yahoo.pawelpiedel.data.place.remote.PlaceRemoteDataSource;
-import pl.yahoo.pawelpiedel.features.filtering.FilterService;
-import pl.yahoo.pawelpiedel.features.filtering.KalmanFilterService;
 import pl.yahoo.pawelpiedel.features.tts.TextToSpeechService;
+import pl.yahoo.pawelpiedel.features.vibrations.VibrationsService;
 import pl.yahoo.pawelpiedel.injection.ApplicationContext;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -62,11 +61,6 @@ public class AppModule {
     @Provides
     RxBleClient reactiveBeacons(@ApplicationContext Context context) {
         return RxBleClient.create(context);
-    }
-
-    @Provides
-    FilterService filterService() {
-        return new KalmanFilterService();
     }
 
     @Provides
@@ -152,5 +146,11 @@ public class AppModule {
     @Singleton
     TextToSpeechService textToSpeechService(@ApplicationContext Context context) {
         return new TextToSpeechService(context);
+    }
+
+    @Provides
+    @Singleton
+    VibrationsService vibrationsService(@ApplicationContext Context context) {
+        return new VibrationsService(context);
     }
 }

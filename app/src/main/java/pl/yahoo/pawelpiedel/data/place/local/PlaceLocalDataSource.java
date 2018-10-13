@@ -30,6 +30,7 @@ public class PlaceLocalDataSource {
     public Place getPlaceByMacAddress(String macAddress) {
         Timber.d("Searching for cached place with mac address " + macAddress);
         String json = sharedPreferences.getString(macAddress, "");
+
         Place place = gson.fromJson(json, Place.class);
         Timber.d("Cached place found " + place);
 

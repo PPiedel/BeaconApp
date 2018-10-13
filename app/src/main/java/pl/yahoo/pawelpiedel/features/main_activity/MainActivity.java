@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.features.main;
+package pl.yahoo.pawelpiedel.features.main_activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

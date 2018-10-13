@@ -10,7 +10,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 
 import pl.yahoo.pawelpiedel.common.TestComponentRule;
-import pl.yahoo.pawelpiedel.features.main.MainActivity;
+import pl.yahoo.pawelpiedel.features.main_activity.MainActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {

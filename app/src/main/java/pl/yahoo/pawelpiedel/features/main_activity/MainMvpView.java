@@ -1,4 +1,4 @@
-package pl.yahoo.pawelpiedel.features.main;
+package pl.yahoo.pawelpiedel.features.main_activity;
 
 import pl.yahoo.pawelpiedel.data.place.Place;
 import pl.yahoo.pawelpiedel.features.base.MvpView;
