@@ -1,11 +1,18 @@
 package pl.yahoo.pawelpiedel.data.place;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 public class Place {
+    @SerializedName("placeType")
     private String placeType;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
 
     public Place(String placeType, String name, String description) {
