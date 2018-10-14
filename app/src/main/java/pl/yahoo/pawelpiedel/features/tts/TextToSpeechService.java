@@ -27,9 +27,9 @@ public class TextToSpeechService implements TextToSpeech.OnInitListener {
     }
 
     public void speak(Place place, double distance) {
-        String sentence = "";
+        String sentence;
         if (distance < 3 && place.getPlaceType().equals("DANGER")) {
-            sentence = "Uważaj! Jesteś w odległości około" + distance + " metrów od miejsca." + place.getName();
+            sentence = "Uważaj! Jesteś w odległości około " + distance + " metrów od miejsca " + place.getName();
         } else {
             sentence = "Zbliżasz się do " + place.getName() + ". Odległość to około " + distance + "metrów.";
         }
@@ -37,6 +37,7 @@ public class TextToSpeechService implements TextToSpeech.OnInitListener {
 
         HashMap<String, String> map = new HashMap<>();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
+
         textToSpeech.speak(sentence, TextToSpeech.QUEUE_FLUSH, map);
     }
 
