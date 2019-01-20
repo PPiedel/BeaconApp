@@ -37,7 +37,6 @@ public class BeaconApplication extends Application {
     public AppComponent getComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
-//                    .networkModule(new NetworkModule(this, BuildConfig.BEACON_LOCALHOST_BASE_URL))
                     .appModule(new AppModule(this))
                     .build();
         }

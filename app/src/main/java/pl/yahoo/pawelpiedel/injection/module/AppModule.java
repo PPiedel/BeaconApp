@@ -33,7 +33,7 @@ import timber.log.Timber;
 
 import static pl.yahoo.pawelpiedel.data.Constants.PREF_FILE_NAME;
 
-@Module(includes = {ApiModule.class})
+@Module
 public class AppModule {
     private final Application application;
 
@@ -55,11 +55,13 @@ public class AppModule {
     }
 
     @Provides
+    @Singleton
     SharedPreferences provideSharedPreference(@ApplicationContext Context context) {
         return context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     @Provides
+    @Singleton
     RxBleClient reactiveBeacons(@ApplicationContext Context context) {
         return RxBleClient.create(context);
     }
