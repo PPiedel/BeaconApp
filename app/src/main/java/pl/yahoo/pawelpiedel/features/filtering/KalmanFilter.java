@@ -2,7 +2,7 @@ package pl.yahoo.pawelpiedel.features.filtering;
 
 import javax.inject.Inject;
 
-public class KalmanFilterService implements FilterService {
+public class KalmanFilter implements Filter {
     private static final double PROCESS_NOISE_COVARIANCE = 0.065;
     private static final double MEASUREMENT_NOISE_COVARIANCE = 1.4;
 
@@ -10,7 +10,7 @@ public class KalmanFilterService implements FilterService {
     private double previousEstimationErrorCovariance;
 
     @Inject
-    public KalmanFilterService(double startRssi) {
+    public KalmanFilter(double startRssi) {
         this.previousRssi = startRssi;
         previousEstimationErrorCovariance = 0;
     }

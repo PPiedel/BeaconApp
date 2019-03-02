@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import pl.yahoo.pawelpiedel.features.distance.DistanceCalculationService;
-import pl.yahoo.pawelpiedel.features.filtering.FilterService;
+import pl.yahoo.pawelpiedel.features.filtering.Filter;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceFactory;
 import pl.yahoo.pawelpiedel.features.filtering.FilterServiceType;
 import timber.log.Timber;
@@ -23,7 +23,7 @@ import static pl.yahoo.pawelpiedel.features.distance.Constants.KNOWN_DEVICES;
 public class BeaconManager {
     private static final int TX_POWER = -70;
 
-    private static Map<String, FilterService> deviceRssiFilterServices = new HashMap<>();
+    private static Map<String, Filter> devicesFilters = new HashMap<>();
 
     private final RxBleClient rxBleClient;
     private final DistanceCalculationService distanceCalculationService;
@@ -59,11 +59,9 @@ public class BeaconManager {
 
     private double getSmoothedRssi(ScanResult scanResult, FilterServiceType filterServiceType) {
         String macAddress = scanResult.getBleDevice().getMacAddress();
-
-        if (!deviceRssiFilterServices.containsKey(macAddress)) {
-            deviceRssiFilterServices.put(macAddress, FilterServiceFactory.createFilterService(filterServiceType, scanResult.getRssi()));
+        if (!devicesFilters.containsKey(macAddress)) {
+            devicesFilters.put(macAddress, FilterServiceFactory.createFilterService(filterServiceType, scanResult.getRssi()));
         }
-
-        return deviceRssiFilterServices.get(macAddress).getFilteredRssi(scanResult.getRssi());
+        return devicesFilters.get(macAddress).getFilteredRssi(scanResult.getRssi());
     }
 }

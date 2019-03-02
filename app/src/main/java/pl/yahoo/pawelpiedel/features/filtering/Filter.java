@@ -1,6 +1,6 @@
 package pl.yahoo.pawelpiedel.features.filtering;
 
 
-public interface FilterService {
+public interface Filter {
     double getFilteredRssi(int rssi);
 }

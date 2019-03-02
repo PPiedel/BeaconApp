@@ -6,14 +6,14 @@ public class FilterServiceFactory {
         //prevent from object creation
     }
 
-    public static FilterService createFilterService(FilterServiceType filterServiceType, double startRssi) {
-        FilterService service;
+    public static Filter createFilterService(FilterServiceType filterServiceType, double startRssi) {
+        Filter service;
         switch (filterServiceType) {
             case KALMAN:
-                service = new KalmanFilterService(startRssi);
+                service = new KalmanFilter(startRssi);
                 break;
             default:
-                service = new KalmanFilterService(startRssi);
+                service = new KalmanFilter(startRssi);
         }
         return service;
     }
